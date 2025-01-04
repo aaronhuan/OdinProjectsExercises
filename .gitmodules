@@ -1,0 +1,3 @@
+[submodule "Foundations/JS/javascript-exercises"]
+	path = Foundations/JS/javascript-exercises
+	url = https://github.com/aaronhuan/OdinProjectsExercises.git
