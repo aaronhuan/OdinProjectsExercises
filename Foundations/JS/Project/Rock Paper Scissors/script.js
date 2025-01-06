@@ -7,16 +7,16 @@ function getComputerChoice(){
     return message 
 }
 
-
-function getHumanChoice(){
-    let choice = prompt("Rock Paper Scissor Set Shoot: ");
-    let choice_l = choice.toLowerCase();
-    let actual_choice = choice_l.charAt(0).toUpperCase() + choice_l.slice(1);
-    if (actual_choice != "Scissor" && actual_choice !="Rock" && actual_choice !="Paper"){
-        return "Invalid choice"
-    }
-    return actual_choice
-}
+// no longer needed b/c we use buttons as input
+// function getHumanChoice(){
+//     let choice = prompt("Rock Paper Scissor Set Shoot: ");
+//     let choice_l = choice.toLowerCase();
+//     let actual_choice = choice_l.charAt(0).toUpperCase() + choice_l.slice(1);
+//     if (actual_choice != "Scissor" && actual_choice !="Rock" && actual_choice !="Paper"){
+//         return "Invalid choice"
+//     }
+//     return actual_choice
+// }
 
 let humanScore = 0;
 let computerScore=0;
@@ -46,12 +46,41 @@ function playRound(humanChoice, computerChoice){
         return `${humanChoice} is an invalid choice`;
     }
 }
+    const doc_body = document.querySelector("body")
+    //create 3 btns, one for each selection
+    const r_btn= document.createElement("button");
+    const s_btn= document.createElement("button");
+    const p_btn= document.createElement("button");
 
-function playGame(){
-    for(i=0; i<5; i++){
-        let outcome= playRound(getHumanChoice(), getComputerChoice())
-        console.log(outcome);
-        console.log ("Computer Score: " + computerScore);
-        console.log("Your Score: " + humanScore)
-   }
-}
+    r_btn.setAttribute("id", "Rock");
+    s_btn.setAttribute("id", "Scissor");
+    p_btn.setAttribute("id", "Paper")
+
+    r_btn.textContent="Rock"
+    s_btn.textContent="Scissor"
+    p_btn.textContent="Paper"
+
+    doc_body.appendChild(r_btn)
+    doc_body.appendChild(s_btn)
+    doc_body.appendChild(p_btn)
+
+    const all_btn= document.querySelectorAll("button");
+    all_btn.forEach((button) => {
+        button.addEventListener("click", () => {
+            console.log(playRound(button.id,getComputerChoice()));
+            console.log(`the score is You:${humanScore}, Computer:${computerScore}`);
+        });
+    });
+            // console.log(button.id)});  //add event listener click that triggers play round
+
+
+// function playGame(){
+
+//     //remove logic that plays exactly 5 rounds
+//     for(i=0; i<5; i++){
+//         let outcome= playRound(getHumanChoice(), getComputerChoice())
+//         console.log(outcome);
+//         console.log ("Computer Score: " + computerScore);
+//         console.log("Your Score: " + humanScore)
+//    }
+// }
