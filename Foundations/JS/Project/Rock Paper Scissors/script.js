@@ -46,7 +46,10 @@ function playRound(humanChoice, computerChoice){
         return `${humanChoice} is an invalid choice`;
     }
 }
-    const doc_body = document.querySelector("body")
+    const doc_body = document.querySelector("body");
+    const display_div = document.createElement("div");
+    doc_body.appendChild(display_div)
+
     //create 3 btns, one for each selection
     const r_btn= document.createElement("button");
     const s_btn= document.createElement("button");
@@ -64,11 +67,16 @@ function playRound(humanChoice, computerChoice){
     doc_body.appendChild(s_btn)
     doc_body.appendChild(p_btn)
 
+    let result_p = document.createElement("p");
+
     const all_btn= document.querySelectorAll("button");
     all_btn.forEach((button) => {
         button.addEventListener("click", () => {
-            console.log(playRound(button.id,getComputerChoice()));
-            console.log(`the score is You:${humanScore}, Computer:${computerScore}`);
+            
+            result_p.textContent=playRound(button.id,getComputerChoice());
+            display_div.appendChild(result_p);
+            let running_score = document.createTextNode(`| The score is You:${humanScore}, Computer:${computerScore}`);
+            result_p.appendChild(running_score);
         });
     });
             // console.log(button.id)});  //add event listener click that triggers play round
