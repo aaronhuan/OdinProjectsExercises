@@ -72,13 +72,27 @@ function playRound(humanChoice, computerChoice){
     const all_btn= document.querySelectorAll("button");
     all_btn.forEach((button) => {
         button.addEventListener("click", () => {
+
             
-            result_p.textContent=playRound(button.id,getComputerChoice());
+        result_p.textContent=playRound(button.id,getComputerChoice());
+        
+        if (humanScore===5 || computerScore===5){
+            const message = (humanScore===5) ? "You Win!" :
+        "You Lose :C";
+            result_p.textContent=message; //remove
+            display_div.appendChild(result_p)
+            humanScore=0; //reset score
+            computerScore=0; //reset score
+        } else{
             display_div.appendChild(result_p);
             let running_score = document.createTextNode(`| The score is You:${humanScore}, Computer:${computerScore}`);
             result_p.appendChild(running_score);
+        }
         });
     });
+
+    
+    
             // console.log(button.id)});  //add event listener click that triggers play round
 
 
