@@ -10,7 +10,7 @@
 }
 
 .container> div{
-    flex-basis: calc(100% / 16); /*each div inside container allowed 1/16th of the width to guarentee 16 boxes*/
+    /*flex-basis: calc(100% / 16);*/ /*each div inside container allowed 1/16th of the width to guarentee 16 boxes*/
     aspect-ratio: 1;
     border: 1px solid pink;
     padding: 0%;
