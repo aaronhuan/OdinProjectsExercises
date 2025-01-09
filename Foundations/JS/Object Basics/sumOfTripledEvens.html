@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //rewritten using map, filter, reduce array methods
+        function sumOfTripledEvens(array){
+            let evens = array.filter((element) =>{
+                return element % 2===0;
+            });
+            let triple_evens = evens.map((even_element)=>{
+                return even_element * 3;
+            });
+
+            let sum_triple_evens = triple_evens.reduce((acc, cur)=>{
+                return acc + cur;
+            },0)
+            return sum_triple_evens;
+        }
+
+        const arr = [1,2,3,4,5];
+        const result = sumOfTripledEvens(arr);
+        console.log(result);
+
+// solution 
+//         function sumOfTripledEvens(array) {
+//             return array
+//                 .filter((num) => num % 2 === 0)
+//                 .map((num) => num * 3)
+//                 .reduce((acc, curr) => acc + curr);
+// }
+
+    </script>
+</body>
+</html>
