@@ -1,15 +1,17 @@
 const palindromes = function (str) {
-    let no_punc= "";
-    for (let i =0; i<str.length; i++){
-        if (str[i].toUpperCase() !== str[i].toLowerCase() || (str[i] >= '0' && str[i] <= '9')){
-            no_punc+=str[i].toLowerCase()
-        }
-    }
-    let reversed = "";
-    for (let i =no_punc.length -1; i>=0; i--){
-        reversed+=no_punc[i];
-    }
-    return reversed === no_punc;
+    const alphanumer= "abcedfghijklmnopqrstuvwxyz0123456789";
+    const no_space = str.split(" ") //splits string with space and creates an array ie car par -> ['car', 'par']
+                    .reduce((complete, part) =>complete + part )
+                    .toLowerCase();
+    const filtered_an= Array.from(no_space)
+                        .filter((char)=> alphanumer.includes(char))
+                        .join('');
+    const reversed = filtered_an.split('')
+                        .reverse()
+                        .join('');
+
+    return reversed === filter_an;
+    
 };
 
 // Do not edit below this line
