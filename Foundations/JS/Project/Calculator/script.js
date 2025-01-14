@@ -93,7 +93,7 @@ all_btns.forEach((button) => {
         let button_num = Number(button.id);
 
         switch (true){
-            case (button_num >=0 && button_num <= 9):
+            case (button_num >=0 && button_num <= 9): //digits clicked 
                 if (current_input === "0" || current_input== undefined){
                     current_input= button.id;
                 }else{
@@ -107,51 +107,58 @@ all_btns.forEach((button) => {
                 }
                 console.log(current_input);
                 break;
-            case (button.id==="."):
+
+            case (button.id==="."): //decimal
                 current_input+= button.id
                 display_digits.textContent=current_input
                 break;
-            case (button.id =="del"):
-                if (current_input.length ==1){
+
+            case (button.id =="del"): //backspace / delete
+                if (current_input.length ==1 && op ==undefined){ //if just a digit then set it to 0
                     current_input= "0";
-                }else{
-                    let delChar = current_input.charAt(current_input.length-1);
-                    if(delChar== "+" || delChar =="-" || delChar == "*" || delChar == "/"){
-                        current_input= first_num||"0";
-                        first_num=undefined;
+                }else{ 
+                    if(op!= undefined && current_input==undefined){ //if op is NOT undefined and current_input is undefined then op is last input
+                        current_input=first_num.toString(); //revert back to number
+                        //change back to undefined
+                        first_num=undefined; 
                         op=undefined;
                     } else{
                         current_input= current_input.substring(0, current_input.length-1);
                     }
                 }
-                display_digits.textContent=current_input;
-                
+                if (op!=undefined){
+                    display_digits.textContent= first_num + " " + op + " " + current_input;
+                } else{
+                    display_digits.textContent=current_input; 
+                }
                 break;
-            case (button.id =="AC"):
+            case (button.id =="AC"): //clear all
                 current_input="0";
                 first_num= undefined;
                 op=undefined;
                 display_digits.textContent=current_input;
                 break;
-            case (button.id== "+" || button.id == "-" || button.id == "/" || button.id == "*"):
-                first_num= current_input; //set first num as what is already there
+            case (button.id== "+" || button.id == "-" || button.id == "/" || button.id == "*"): // op
+                first_num= Number(current_input); //set first num as what is already there
                 op= button.id; // set op to the symbol
                 display_digits.textContent= current_input +" " + op;
                 current_input= undefined; //set current_input to undefined and let user define it (better than setting it to 0)
                 break 
-            case (button.id == "="):
-                if (first_num !== undefined && op !== undefined && second_num==undefined){
-                    second_num=current_input;
-                    let result = (op == "+") ? add_op(first_num, second_num) :
-                                 (op == "-") ? sub_op (first_num,second_num) : 
-                                 (op == "*") ? mul_op (first_num,second_num) : 
-                                 (op == "/") ? div_op (first_num,second_num) : 
+            case (button.id == "="): //evaluate
+                let result = "NaN"
+                if (first_num !== undefined && op !== undefined){
+                    second_num= Number(current_input);
+                    result = (op == "+") ? add_op(first_num, second_num) :
+                                 (op == "-") ? sub_op (first_num, second_num) : 
+                                 (op == "*") ? mul_op (first_num, second_num) : 
+                                 (op == "/") ? div_op (first_num, second_num) : 
                                  "NaN"
                     first_num= result;
                     current_input=result;
                     op = undefined;
                     second_num=undefined;
-                } else {result = "NaN"}
+                } 
+                console.log(result);
                 display_digits.textContent = result;
                 break
             default:
