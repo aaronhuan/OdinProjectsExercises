@@ -1,3 +1,7 @@
+body{
+    background-color: #A9CCE3;
+}
+
 #calculator {
     display: flex;
     justify-content: center;
@@ -10,6 +14,7 @@
 #display{
     background-color: #D9E6E6;
     width: 400px;
+    border-radius: 5%;
 }
 
 
@@ -26,5 +31,13 @@
     background-color:  #BDC3C7;
 }
 .red-btns{
-    background-color:#E74C3C ;
+    background-color: #E74C3C ;
+}
+
+button{
+    box-sizing:border-box;
+    flex-basis: calc(100%/4);
+    aspect-ratio:1;
+    border-radius: 5%;
+
 }

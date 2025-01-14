@@ -16,9 +16,9 @@ function div_op (num1,num2){
 }
 
 //step 2 create 3 vars
-let first_num;
-let second_num;
-let op;
+let first_num=undefined;
+let second_num=undefined;
+let op=undefined;
 
 //step 3 operate fun takes in 3 vars and calls one of the above fun
 function operate(op, num1, num2){
@@ -82,3 +82,82 @@ const clear_btn = document.querySelector("#AC");
 const del_btn = document.querySelector("#del");
 clear_btn.setAttribute("class", "red-btns");
 del_btn.setAttribute("class", "red-btns");// set delete and clear to diff class 
+
+//make it work 
+let current_input="0";
+
+const all_btns = document.querySelectorAll("button");
+
+all_btns.forEach((button) => {
+    button.addEventListener("click", () =>{
+        let button_num = Number(button.id);
+
+        switch (true){
+            case (button_num >=0 && button_num <= 9):
+                if (current_input === "0" || current_input== undefined){
+                    current_input= button.id;
+                }else{
+                    current_input+= button.id;
+                }
+
+                if (first_num !== undefined && op !== undefined){
+                    display_digits.textContent = first_num + " " + op + " " + current_input
+                } else {
+                    display_digits.textContent=current_input;
+                }
+                console.log(current_input);
+                break;
+            case (button.id==="."):
+                current_input+= button.id
+                display_digits.textContent=current_input
+                break;
+            case (button.id =="del"):
+                if (current_input.length ==1){
+                    current_input= "0";
+                }else{
+                    let delChar = current_input.charAt(current_input.length-1);
+                    if(delChar== "+" || delChar =="-" || delChar == "*" || delChar == "/"){
+                        current_input= first_num||"0";
+                        first_num=undefined;
+                        op=undefined;
+                    } else{
+                        current_input= current_input.substring(0, current_input.length-1);
+                    }
+                }
+                display_digits.textContent=current_input;
+                
+                break;
+            case (button.id =="AC"):
+                current_input="0";
+                first_num= undefined;
+                op=undefined;
+                display_digits.textContent=current_input;
+                break;
+            case (button.id== "+" || button.id == "-" || button.id == "/" || button.id == "*"):
+                first_num= current_input; //set first num as what is already there
+                op= button.id; // set op to the symbol
+                display_digits.textContent= current_input +" " + op;
+                current_input= undefined; //set current_input to undefined and let user define it (better than setting it to 0)
+                break 
+            case (button.id == "="):
+                if (first_num !== undefined && op !== undefined && second_num==undefined){
+                    second_num=current_input;
+                    let result = (op == "+") ? add_op(first_num, second_num) :
+                                 (op == "-") ? sub_op (first_num,second_num) : 
+                                 (op == "*") ? mul_op (first_num,second_num) : 
+                                 (op == "/") ? div_op (first_num,second_num) : 
+                                 "NaN"
+                    first_num= result;
+                    current_input=result;
+                    op = undefined;
+                    second_num=undefined;
+                } else {result = "NaN"}
+                display_digits.textContent = result;
+                break
+            default:
+                console.log("button not between 0 and 9")
+                break
+        }
+        
+    });   
+});
