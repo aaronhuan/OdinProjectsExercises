@@ -114,18 +114,23 @@ all_btns.forEach((button) => {
                 break;
 
             case (button.id =="del"): //backspace / delete
-                if (current_input.length ==1 && op ==undefined){ //if just a digit then set it to 0
-                    current_input= "0";
-                }else{ 
-                    if(op!= undefined && current_input==undefined){ //if op is NOT undefined and current_input is undefined then op is last input
+                if (current_input===undefined){
+                    if (op !== undefined){
                         current_input=first_num.toString(); //revert back to number
                         //change back to undefined
                         first_num=undefined; 
-                        op=undefined;
+                        op=undefined;  
                     } else{
+                    current_input = "0";
+                    }
+                } else{
+                    if (current_input.length ==1 && op ==undefined){ //if just a digit then set it to 0
+                    current_input= "0";
+                    } else {
                         current_input= current_input.substring(0, current_input.length-1);
                     }
                 }
+
                 if (op!=undefined){
                     display_digits.textContent= first_num + " " + op + " " + current_input;
                 } else{
