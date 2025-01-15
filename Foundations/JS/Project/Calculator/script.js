@@ -43,38 +43,26 @@ const container = document.createElement("div"); // container for the calculator
 document.body.appendChild(container);//add container to body
 container.setAttribute("id", "container");
 
+const calculator = document.createElement("div"); //calculator as a whole 
+calculator.setAttribute("id", "calculator")
+container.appendChild(calculator);
+
 const display = document.createElement("div"); //for displaying 
 const display_digits = document.createElement("p"); //the text
 display.setAttribute("id", "display");
 display_digits.textContent="0";//default start 
 
-const calcbtns = document.createElement("div"); // created a div where calculator would live
-calcbtns.setAttribute("id", "calculator");
+const calcBody = document.createElement("div"); // created a div where calculator would live
+calcBody.setAttribute("id", "calculatorBody");
 
-container.appendChild(display);
+calculator.appendChild(display);
 display.appendChild(display_digits);
-container.appendChild(calcbtns); //add the div into body
+calculator.appendChild(calcBody); //add the div into body
 
-
-function createRegBtns(name){ //helper function in creating buttons
-    let curOpBtn = document.createElement("button");
-    curOpBtn.textContent= name;
-    curOpBtn.setAttribute("id", name);
-    curOpBtn.setAttribute("class","reg-btns")
-    calcbtns.appendChild(curOpBtn);
-}
-
-for(let i=0; i<10; i++){ //create buttons for 0->9
-    createRegBtns(`${i}`)
-}
-
-//create buttons for operators
-createRegBtns("+");
-createRegBtns("-");
-createRegBtns("*");
-createRegBtns("/");
-createRegBtns(".");
-createRegBtns("=");
+//make these first so its on top 
+const reds = document.createElement("div")
+reds.setAttribute("id", "reds")
+calcBody.appendChild(reds);
 createRegBtns("AC");
 createRegBtns("del");
 
@@ -82,6 +70,52 @@ const clear_btn = document.querySelector("#AC");
 const del_btn = document.querySelector("#del");
 clear_btn.setAttribute("class", "red-btns");
 del_btn.setAttribute("class", "red-btns");// set delete and clear to diff class 
+reds.appendChild(clear_btn);
+reds.appendChild(del_btn);
+
+const rest = document.createElement("div");
+rest.setAttribute("id", "rest");
+calcBody.appendChild(rest);
+
+
+function createRegBtns(name){ //helper function in creating buttons
+    let curOpBtn = document.createElement("button");
+    curOpBtn.textContent= name;
+    curOpBtn.setAttribute("id", name);
+    curOpBtn.setAttribute("class","reg-btns")
+    calcBody.appendChild(curOpBtn);
+}
+
+
+//create buttons for op and numbers 
+createRegBtns(1);
+createRegBtns(2);
+createRegBtns(3);
+createRegBtns("+");
+
+createRegBtns(4);
+createRegBtns(5);
+createRegBtns(6);
+createRegBtns("-");
+
+createRegBtns(7);
+createRegBtns(8);
+createRegBtns(9);
+createRegBtns("*");
+
+createRegBtns(0);
+createRegBtns(".");
+createRegBtns("=");
+createRegBtns("/");
+
+let all_rest= document.querySelectorAll(".reg-btns");
+
+all_rest.forEach(btn => {
+    rest.appendChild(btn);
+});
+
+//after all buttons are made put it under rest of buttons div 
+
 
 //make it work 
 let current_input="0";
